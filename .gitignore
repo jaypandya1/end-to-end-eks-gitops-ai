@@ -1,0 +1,48 @@
+# =========================
+# 1. Terraform (CRITICAL SECURITY)
+# =========================
+# Local .terraform directories
+**/.terraform/*
+# .tfstate files contain raw AWS secrets and architecture data. NEVER commit them.
+*.tfstate
+*.tfstate.*
+# Crash logs and sensitive variable files
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# =========================
+# 2. Node.js & React (Conduit App)
+# =========================
+node_modules/
+npm-debug.log
+yarn-error.log
+# Build outputs
+build/
+dist/
+.next/
+out/
+
+# =========================
+# 3. Environment Variables (CRITICAL SECURITY)
+# =========================
+# Never commit database passwords, API keys, or secret tokens.
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# =========================
+# 4. OS & IDE Junk
+# =========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
