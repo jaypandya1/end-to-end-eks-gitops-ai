@@ -12,9 +12,16 @@ spec:
     metadata:
       labels:
         app: frontend
-  spec:
-    containers:
-      - name: frontend
-        image: 957563772273.dkr.ecr.us-east-1.amazonaws.com/fitnest-frontend:latest
-        ports:
-        - containerPort: 80
+    spec:
+      containers:
+        - name: frontend
+          image: 957563772273.dkr.ecr.us-east-1.amazonaws.com/fitnest-frontend:latest
+          ports:
+          - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"

@@ -12,13 +12,20 @@ spec:
     metadata:
       labels:
         app: backend
-  spec:
-    containers:
-      - name: backend
-        image: 957563772273.dkr.ecr.us-east-1.amazonaws.com/fitnest-backend:latest
-        ports:
-        - containerPort: 3001
-        env:
+    spec:
+      containers:
+        - name: backend
+          image: 957563772273.dkr.ecr.us-east-1.amazonaws.com/fitnest-backend:latest
+          ports:
+          - containerPort: 3001
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "300m"
+          env:
         - name: PORT
           value: "3001"
         - name: DB_USER
