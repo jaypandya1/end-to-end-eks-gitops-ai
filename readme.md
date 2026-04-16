@@ -1,41 +1,41 @@
-Phase 1: Modular Cloud Foundation 🏗️
-We use Terraform to build a secure, multi-tier network and a managed Kubernetes cluster.
+# 🚀 AI-Assisted K8s Platform: Enterprise GitOps on AWS EKS
 
-📂 Directory Structure
-Plaintext
-terraform/
-├── main.tf          # Root "orchestrator"
-├── variables.tf     # Global environment settings
-└── modules/
-    ├── vpc/         # Networking (Public/Private subnets)
-    └── eks/         # EKS Cluster & Managed Node Groups
-🛠️ Execution Steps
-Initialize: terraform init to download providers and modules.
+![AWS](https://img.shields.io/badge/AWS-EKS%20%7C%20ECR%20%7C%20VPC-FF9900?logo=amazonaws&style=flat-square)
+![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC?logo=terraform&style=flat-square)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-GitOps-326CE5?logo=kubernetes&style=flat-square)
+![ArgoCD](https://img.shields.io/badge/ArgoCD-Continuous%20Delivery-EF7B4D?logo=argo&style=flat-square)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI-2088FF?logo=githubactions&style=flat-square)
+![Python](https://img.shields.io/badge/Python-AI%20Agent-3776AB?logo=python&style=flat-square)
 
-Plan: terraform plan to verify the 50+ resources being created.
+## 📌 Project Overview
+The AI-Assisted K8s Platform is an end-to-end, cloud-native microservices architecture deployed on Amazon Elastic Kubernetes Service (EKS). This project serves as a comprehensive demonstration of modern Cloud Engineering practices, featuring fully automated infrastructure provisioning, a strict GitOps CI/CD pipeline, and a custom LLM-powered Root Cause Analysis (RCA) agent for intelligent, self-healing observability.
 
-Deploy: terraform apply --auto-approve (approx. 15-minute runtime).
+## 🏗️ Architecture & Core Technologies
 
-Connect: aws eks update-kubeconfig --region us-east-1 --name conduit-enterprise-dev
+* **Infrastructure as Code (IaC):** AWS environment (VPC, private/public subnets, EKS Cluster, ECR Registries) provisioned immutably using modular **Terraform**.
+* **Container Orchestration:** Microservices (Node.js backend, React frontend) orchestrated via **Kubernetes (AWS EKS)**.
+* **Continuous Integration (CI):** **GitHub Actions** pipeline that securely authenticates with AWS via OIDC/Secrets, builds Docker images from nested directories, and pushes them to private ECR repositories upon code changes.
+* **Continuous Delivery (CD):** **ArgoCD** deployed within the cluster, utilizing a pull-based GitOps methodology to ensure the live cluster state perfectly mirrors the `k8s/` manifests in this repository.
+* **AIOps (Coming Soon):** A **Python-based LLM Agent** designed to monitor Kubernetes events, automatically detect `CrashLoopBackOff` or `ImagePullBackOff` errors, and generate human-readable RCA reports using generative AI.
 
-Phase 2: Application Containerization 📦
-We transform the raw source code into secure, production-ready Docker images.
+## 📂 Repository Structure
 
-🏗️ The Multi-Stage Strategy
-Instead of one large image, we use a "Build" stage and a "Run" stage.
+Because this is a comprehensive monorepo, the automation pipelines live at the root, while the application and infrastructure code are nested within the main project folder.
 
-Stage 1 (Build): Contains full compilers, npm, and source code.
-
-Stage 2 (Production): Contains only the compiled artifacts and the minimal runtime.
-
-📂 Application Layout
-Plaintext
-application/
-├── backend/    # Node.js API
-│   └── Dockerfile
-└── frontend/   # React SPA
-    └── Dockerfile
-🔒 Security Highlights
-Non-Root Execution: Containers run as a standard user, not root.
-
-Distroless/Alpine Bases: Minimal operating system footprint to reduce vulnerabilities.
+```text
+.
+├── .github/workflows/             # CI Pipeline (GitHub Actions)
+│   └── deploy.yaml                # Build & push workflow for nested microservices
+└── simple-k8s-app/                # Main Application & Infrastructure Code
+    ├── backend/                   # Node.js backend application source code & Dockerfile
+    ├── frontend/                  # React frontend application source code & Dockerfile
+    ├── k8s/                       # Kubernetes Manifests (The "GitOps Source of Truth")
+    │   ├── backend/               # Backend Deployment, Service, ConfigMap
+    │   ├── frontend/              # Frontend Deployment, Service
+    │   └── database/               # Database Deployment, Service
+    ├── terraform/                 # Infrastructure as Code
+    │   ├── modules/               # Custom local modules (VPC, EKS, ECR)
+    │   ├── main.tf                # Orchestration layer
+    │   ├── variables.tf           # Environment variables
+    │   └── outputs.tf             # EKS endpoints and ECR URLs
+    └── ai-agent/                  # Python LLM Root Cause Analysis script (WIP)
