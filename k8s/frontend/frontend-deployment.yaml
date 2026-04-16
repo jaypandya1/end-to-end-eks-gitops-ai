@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: 957563772273.dkr.ecr.us-east-1.amazonaws.com/fitnest-frontend:v2
+          image: 957563772273.dkr.ecr.us-east-1.amazonaws.com/fitnest-frontend:v4
           ports:
           - containerPort: 80
           resources:

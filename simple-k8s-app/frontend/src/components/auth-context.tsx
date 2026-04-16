@@ -8,6 +8,9 @@ import {
   type ReactNode,
 } from "react";
 
+// 1. Capture the Vite Environment Variable (with a fallback for local dev)
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
 interface User {
   id: number;
   name: string;
@@ -36,10 +39,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    // Check for stored token on app load
     const token = localStorage.getItem("token");
     if (token) {
-      // Basic token format validation before making request
       const tokenParts = token.split(".");
       if (tokenParts.length !== 3) {
         console.error("Invalid token format found in localStorage");
@@ -48,8 +49,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return;
       }
 
-      // Verify token is still valid by making a request
-      fetch("http://localhost:3001/api/auth/verify", {
+      // 2. Updated the verify URL
+      fetch(`${API_URL}/api/auth/verify`, {
         headers: {
           "x-auth-token": token.trim(),
         },
@@ -75,7 +76,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (email: string, password: string) => {
-    const response = await fetch("http://localhost:3001/api/auth/login", {
+    // 3. Updated the login URL
+    const response = await fetch(`${API_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -89,7 +91,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw new Error(data.error || "Login failed");
     }
 
-    // Validate token format before storing
     if (data.token) {
       const tokenParts = data.token.split(".");
       if (tokenParts.length !== 3) {
@@ -103,7 +104,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const register = async (userData: any) => {
-    const response = await fetch("http://localhost:3001/api/auth/register", {
+    // 4. Updated the register URL
+    const response = await fetch(`${API_URL}/api/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -117,7 +119,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw new Error(data.error || "Registration failed");
     }
 
-    // Validate token format before storing
     if (data.token) {
       const tokenParts = data.token.split(".");
       if (tokenParts.length !== 3) {
@@ -132,7 +133,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     clearAuthData();
-    // Redirect to login page using React Router
     window.location.href = "/login";
   };
 
