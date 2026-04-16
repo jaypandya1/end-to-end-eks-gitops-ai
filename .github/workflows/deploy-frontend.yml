@@ -5,8 +5,9 @@ on:
     branches:
       - main
     paths:
-      - 'simple-k8s-app/frontend/**' # <--- Updated: Only triggers when files in this folder change
-
+      - 'simple-k8s-app/frontend/**' 
+permissions:
+  contents: write
 env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: fitnest-frontend
