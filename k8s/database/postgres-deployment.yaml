@@ -1163,11 +1163,14 @@ spec:
           value: "password"
         - name: POSTGRES_DB
           value: "FitNest"
+        - name: PGDATA
+          value: "/var/lib/postgresql/data/postgres-data"
         ports:
         - containerPort: 5432
         volumeMounts:
         - name: postgres-storage
           mountPath: /var/lib/postgresql/data
+          subPath: postgres-data
         - name: init-script
           mountPath: /docker-entrypoint-initdb.d/
       volumes:
