@@ -1189,3 +1189,18 @@ spec:
       - name: init-script
         configMap:
           name: postgres-init-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-config
+  namespace: fitnest
+data:
+  init.sql: |
+    -- This file runs automatically when the database is created.
+    -- You can add your actual schema setup here later!
+    
+    CREATE SCHEMA IF NOT EXISTS fitnest_schema;
+    
+    -- Example placeholder:
+    -- CREATE TABLE IF NOT EXISTS users (id serial PRIMARY KEY, username VARCHAR (50) NOT NULL);
