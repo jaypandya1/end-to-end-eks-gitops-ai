@@ -1116,7 +1116,6 @@ data:
         --
         -- PostgreSQL database dump complete
         --
----
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -1125,7 +1124,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: gp2   # <--- Fixed to match your AWS cluster!
+  storageClassName: gp2
   resources:
     requests:
       storage: 1Gi
@@ -1147,17 +1146,17 @@ spec:
         app: postgres
     spec:
       securityContext:
-        fsGroup: 999
+        fsGroup: 70
       initContainers:
       - name: fix-permissions
         image: busybox
-        command: ["sh", "-c", "mkdir -p /var/lib/postgresql/data && chown -R 999:999 /var/lib/postgresql/data && chmod -R 700 /var/lib/postgresql/data"]
+        command: ["sh", "-c", "mkdir -p /var/lib/postgresql/data/postgres-data && chown -R 70:70 /var/lib/postgresql/data && chmod -R 700 /var/lib/postgresql/data"]
         securityContext:
           runAsUser: 0
         volumeMounts:
         - name: postgres-storage
           mountPath: /var/lib/postgresql/data
-    containers:
+      containers:
       - name: postgres
         image: postgres:15-alpine
         resources:
@@ -1174,6 +1173,8 @@ spec:
           value: "password"
         - name: POSTGRES_DB
           value: "FitNest"
+        - name: PGDATA
+          value: "/var/lib/postgresql/data/postgres-data"
         ports:
         - containerPort: 5432
         volumeMounts:
@@ -1181,8 +1182,8 @@ spec:
           mountPath: /var/lib/postgresql/data
         - name: init-script
           mountPath: /docker-entrypoint-initdb.d/
-        volumes:
-        - name: postgres-storage
+      volumes:
+      - name: postgres-storage
         persistentVolumeClaim:
           claimName: postgres-pvc
       - name: init-script
