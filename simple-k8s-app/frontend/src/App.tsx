@@ -80,7 +80,7 @@ function AppContent() {
                     : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700"
                 }`}
               >
-                <LayoutDashboard className="w-4 h-4 inline mr-1" />
+                <LayoutDashboard className="w-4 h-4 inline mr-1" /> ###
                 Dashboard
               </button>
               <button
