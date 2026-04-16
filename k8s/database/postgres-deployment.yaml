@@ -1118,19 +1118,6 @@ data:
         --
 
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: postgres-pvc
-  namespace: fitnest
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: gp2
-  resources:
-    requests:
-      storage: 1Gi
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -1173,8 +1160,7 @@ spec:
           mountPath: /docker-entrypoint-initdb.d/
       volumes:
       - name: postgres-storage
-        persistentVolumeClaim:
-          claimName: postgres-pvc
+        emptyDir: {}
       - name: init-script
         configMap:
           name: postgres-init-config
