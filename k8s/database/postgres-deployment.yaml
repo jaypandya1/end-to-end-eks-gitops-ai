@@ -1136,6 +1136,8 @@ metadata:
   name: db 
   namespace: fitnest
 spec:
+  securityContext:
+    fsGroup: 999
   serviceName: "db"
   replicas: 1
   selector:
