@@ -1137,11 +1137,11 @@ metadata:
   namespace: fitnest
 spec:
   securityContext:
-    fsGroup: 999
+    fsGroup: 70
   initContainers:
   - name: fix-permissions
     image: busybox
-    command: ["sh", "-c", "chown -R 999:999 /var/lib/postgresql/data"]
+    command: ["sh", "-c", "chown -R 70:70 /var/lib/postgresql/data"]
     volumeMounts:
     - name: postgres-storage
       mountPath: /var/lib/postgresql/data
