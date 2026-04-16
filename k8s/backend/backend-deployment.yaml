@@ -12,7 +12,7 @@ spec:
     metadata:
       labels:
         app: backend
-    spec:
+  spec:
     containers:
       - name: backend
         image: 957563772273.dkr.ecr.us-east-1.amazonaws.com/fitnest-backend:latest
@@ -26,7 +26,7 @@ spec:
         - name: DB_NAME
           value: "FitNest"
         - name: DB_HOST
-          value: "db" 
+          value: "db"
       
         - name: DB_PASSWORD
           valueFrom:
