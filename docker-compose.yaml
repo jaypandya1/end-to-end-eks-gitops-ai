@@ -1,0 +1,54 @@
+services:
+  # ----------------------------------------
+  # TIER 1: FRONTEND (Nginx)
+  # ----------------------------------------
+  frontend:
+    build: ./simple-k8s-app/frontend/
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - fitnest-net
+
+  # ----------------------------------------
+  # TIER 2: BACKEND (Node.js API)
+  # ----------------------------------------
+  backend:
+    build: ./simple-k8s-app/backend/
+    ports:                  # <--- ADD THIS LINE
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=FitNest
+      - DB_HOST=db  # This matches the database service name below
+      - JWT_SECRET=super-secret-key
+      # - OPENAI_API_KEY=${OPENAI_API_KEY} # Add later for Phase 2
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - fitnest-net
+
+  # ----------------------------------------
+  # TIER 3: DATABASE (PostgreSQL)
+  # ----------------------------------------
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=FitNest
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d FitNest"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - fitnest-net
+
+networks:
+  fitnest-net:
+    driver: bridge

@@ -12,7 +12,7 @@ module "eks" {
     vpc-cni                = { before_compute = true }
   }
 
-  endpoint_public_access = true
+  endpoint_public_access                   = true
   enable_cluster_creator_admin_permissions = true
 
   # Using our variables here!

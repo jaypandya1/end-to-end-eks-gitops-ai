@@ -1,3 +1,4 @@
+
 # VPC Module
 module "vpc" {
   source = "./modules/vpc"
@@ -15,4 +16,15 @@ module "eks" {
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
+}
+
+
+module "ecr_backend" {
+  source          = "./modules/ecr"
+  repository_name = "fitnest-backend"
+}
+
+module "ecr_frontend" {
+  source          = "./modules/ecr"
+  repository_name = "fitnest-frontend"
 }
