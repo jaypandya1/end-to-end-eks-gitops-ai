@@ -8,8 +8,10 @@ import {
   type ReactNode,
 } from "react";
 
-// 1. Capture the Vite Environment Variable (with a fallback for local dev)
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const rawApiUrl = import.meta.env.VITE_API_URL?.trim();
+const API_URL = (rawApiUrl || (import.meta.env.DEV ? "http://localhost:3001" : "")).replace(/\/+$/, "");
+
+const apiPath = (path: string) => `${API_URL}${path}`;
 
 interface User {
   id: number;
@@ -49,8 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return;
       }
 
-      // 2. Updated the verify URL
-      fetch(`${API_URL}/api/auth/verify`, {
+      fetch(apiPath("/api/auth/verify"), {
         headers: {
           "x-auth-token": token.trim(),
         },
@@ -76,8 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (email: string, password: string) => {
-    // 3. Updated the login URL
-    const response = await fetch(`${API_URL}/api/auth/login`, {
+    const response = await fetch(apiPath("/api/auth/login"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -104,8 +104,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const register = async (userData: any) => {
-    // 4. Updated the register URL
-    const response = await fetch(`${API_URL}/api/auth/register`, {
+    const response = await fetch(apiPath("/api/auth/register"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
