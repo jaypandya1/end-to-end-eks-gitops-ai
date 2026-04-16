@@ -1136,18 +1136,6 @@ metadata:
   name: db 
   namespace: fitnest
 spec:
-  securityContext:
-    fsGroup: 70
-  initContainers:
-  - name: fix-permissions
-    image: busybox
-    command: ["sh", "-c", "chown -R 70:70 /var/lib/postgresql/data"]
-    volumeMounts:
-    - name: postgres-storage
-      mountPath: /var/lib/postgresql/data
-  containers:
-   - name: postgres
-     image: postgres:15-alpine
   serviceName: "db"
   replicas: 1
   selector:
@@ -1158,7 +1146,18 @@ spec:
       labels:
         app: postgres
     spec:
-      containers:
+      securityContext:
+        fsGroup: 999
+      initContainers:
+      - name: fix-permissions
+        image: busybox
+        command: ["sh", "-c", "mkdir -p /var/lib/postgresql/data && chown -R 999:999 /var/lib/postgresql/data && chmod -R 700 /var/lib/postgresql/data"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+    containers:
       - name: postgres
         image: postgres:15-alpine
         resources:
@@ -1175,18 +1174,15 @@ spec:
           value: "password"
         - name: POSTGRES_DB
           value: "FitNest"
-        - name: PGDATA
-          value: "/var/lib/postgresql/data/postgres-data"
         ports:
         - containerPort: 5432
         volumeMounts:
         - name: postgres-storage
           mountPath: /var/lib/postgresql/data
-          subPath: postgres-data
         - name: init-script
           mountPath: /docker-entrypoint-initdb.d/
-      volumes:
-      - name: postgres-storage
+        volumes:
+        - name: postgres-storage
         persistentVolumeClaim:
           claimName: postgres-pvc
       - name: init-script
