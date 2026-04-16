@@ -15,7 +15,11 @@ spec:
     spec:
       containers:
         - name: frontend
+<<<<<<< HEAD
           image: 957563772273.dkr.ecr.us-east-1.amazonaws.com/fitnest-frontend:latest
+=======
+          image: 957563772273.dkr.ecr.us-east-1.amazonaws.com/fitnest-frontend:045fca7e0f11257ddbc6b2e00767edb44b655e60
+>>>>>>> fd4019dccddb3cd0a2d61706f750f7930cb42194
           ports:
           - containerPort: 80
           resources:
