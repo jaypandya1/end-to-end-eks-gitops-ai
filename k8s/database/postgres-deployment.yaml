@@ -1138,6 +1138,16 @@ metadata:
 spec:
   securityContext:
     fsGroup: 999
+  initContainers:
+  - name: fix-permissions
+    image: busybox
+    command: ["sh", "-c", "chown -R 999:999 /var/lib/postgresql/data"]
+    volumeMounts:
+    - name: postgres-storage
+      mountPath: /var/lib/postgresql/data
+  containers:
+   - name: postgres
+     image: postgres:15-alpine
   serviceName: "db"
   replicas: 1
   selector:
