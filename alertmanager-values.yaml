@@ -1,0 +1,32 @@
+alertmanager:
+  config:
+    global:
+      resolve_timeout: 5m
+    route:
+      group_by: ['namespace', 'alertname']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 12h
+      receiver: 'slack-notifications'
+      routes:
+      # This ignores the dummy "Watchdog" alert that fires constantly by default
+      - matchers:
+        - alertname = "Watchdog"
+        receiver: 'null'
+      # Send everything else to Slack
+      - receiver: 'slack-notifications'
+        matchers:
+        - severity =~ "warning|critical"
+    receivers:
+    - name: 'null'
+    - name: 'slack-notifications'
+      slack_configs:
+      - api_url: etc/alertmanager/secrets/slack-webhook-secret/api_url
+        send_resolved: true
+        channel: '#fitnest-alerts'
+        title: '[{{ .Status | toUpper }}] {{ .CommonLabels.alertname }}'
+        text: >-
+          *Cluster:* fitnest-cluster
+          *Severity:* {{ .CommonLabels.severity }}
+          *Description:* {{ .CommonAnnotations.description }}
+          *Summary:* {{ .CommonAnnotations.summary }}
