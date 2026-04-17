@@ -11,7 +11,7 @@
 
 ---
 
-## 🧭 Executive Summary
+## 🧭 Summary
 Engineered a **highly available, self-healing GitOps platform** on AWS EKS that automates infrastructure provisioning, secure delivery, and continuous observability. This portfolio-grade system demonstrates **platform engineering** principles, combining **GitOps, IaC, and AIOps** to deliver reliable, scalable cloud operations.
 
 ---
@@ -120,8 +120,5 @@ flowchart LR
    - Apply `alertmanager-values.yaml` and `sealed-secret.yaml` to route alerts to Slack.
 
 ---
-
-## 💼 Why This Project Matters
-This repository represents **real-world platform engineering**: infrastructure automation, GitOps delivery, security‑first secret handling, and AI‑assisted incident response — the exact capabilities expected from **Senior Cloud/DevOps Engineers** building enterprise-grade systems.
 
 ---
