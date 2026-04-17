@@ -106,6 +106,37 @@ Engineered a **highly available, self-healing GitOps platform** on AWS EKS that 
    - Deploy Prometheus/Grafana stack.
    - Apply `alertmanager-values.yaml` and `sealed-secret.yaml` to route alerts to Slack.
 
----
+## Fitnest App (Secured)
 
----
+<img width="1440" height="900" alt="FITNEST_SECURE" src="https://github.com/user-attachments/assets/d0056367-ac58-49d6-8c77-47019526cf14" />
+
+## ArgoCD DashBoard
+
+<img width="1440" height="900" alt="ARGOCD" src="https://github.com/user-attachments/assets/abb3acb2-928d-41d0-9e1c-5f3ac24c8557" />
+
+## Github Actions CI workflow Kubernetes
+
+<img width="1440" height="900" alt="GIHUB_ACTIONS_CI_WORKFLOW_1" src="https://github.com/user-attachments/assets/24614ad2-abf7-40e2-95f2-fafc66ae3273" />
+
+## Github Actions CI workflow FrontEnd + Backend
+
+<img width="1440" height="900" alt="GITHUB_ACTIONS_CI_WORKFLOW_2" src="https://github.com/user-attachments/assets/06f81c8e-7995-405a-b1af-c41814b668ac" />
+
+## Grafana Dashboard
+
+<img width="1440" height="900" alt="GRAFANA" src="https://github.com/user-attachments/assets/4cc25933-9213-436b-9bf8-09e9b5093ed1" />
+
+## Python RCA 
+
+<img width="1406" height="857" alt="LLM RCA" src="https://github.com/user-attachments/assets/6da1ae7f-86e0-4ec1-be8b-0d532a1239f9" />
+
+## Slack Integration EKS 
+
+<img width="1440" height="900" alt="SLACK_CONNECTION" src="https://github.com/user-attachments/assets/20b5d4a4-b6a8-4264-8880-1f708cd5ead8" />
+
+
+
+
+
+
+
