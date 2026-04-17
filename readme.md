@@ -17,7 +17,7 @@ Engineered a **highly available, self-healing GitOps platform** on AWS EKS that 
 ---
 
 ## 🏗️ Architecture (Platform + GitOps Flow)
-![Architecture (Platform + GitOps Flow)](image-1.png)
+![Architecture (Platform + GitOps Flow)](image-2.png)
 
 ## 🔑 Key Infrastructure Pillars
 
