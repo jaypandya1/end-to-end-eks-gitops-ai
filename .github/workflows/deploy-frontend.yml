@@ -11,7 +11,7 @@ permissions:
 env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: fitnest-frontend
-  ECR_REGISTRY: 957563772273.dkr.ecr.us-east-1.amazonaws.com 
+  ECR_REGISTRY: 957563772273.dkr.ecr.us-east-1.amazonaws.com
 
 jobs:
   build-and-update-manifest:
