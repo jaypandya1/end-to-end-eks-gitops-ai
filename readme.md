@@ -1,41 +1,127 @@
-# 🚀 AI-Assisted K8s Platform: Enterprise GitOps on AWS EKS
+# 🚀 GitOps Platform Engineering on AWS EKS
 
 ![AWS](https://img.shields.io/badge/AWS-EKS%20%7C%20ECR%20%7C%20VPC-FF9900?logo=amazonaws&style=flat-square)
-![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC?logo=terraform&style=flat-square)
-![Kubernetes](https://img.shields.io/badge/Kubernetes-GitOps-326CE5?logo=kubernetes&style=flat-square)
-![ArgoCD](https://img.shields.io/badge/ArgoCD-Continuous%20Delivery-EF7B4D?logo=argo&style=flat-square)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI-2088FF?logo=githubactions&style=flat-square)
-![Python](https://img.shields.io/badge/Python-AI%20Agent-3776AB?logo=python&style=flat-square)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-Platform%20Engineering-326CE5?logo=kubernetes&style=flat-square)
+![ArgoCD](https://img.shields.io/badge/ArgoCD-GitOps-EF7B4D?logo=argo&style=flat-square)
+![Prometheus](https://img.shields.io/badge/Prometheus-Observability-E6522C?logo=prometheus&style=flat-square)
+![Grafana](https://img.shields.io/badge/Grafana-Metrics%20%26%20Dashboards-F46800?logo=grafana&style=flat-square)
+![Docker](https://img.shields.io/badge/Docker-Containers-2496ED?logo=docker&style=flat-square)
+![Python](https://img.shields.io/badge/Python-AIOps%20Controller-3776AB?logo=python&style=flat-square)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI/CD-2088FF?logo=githubactions&style=flat-square)
 
-## 📌 Project Overview
-The AI-Assisted K8s Platform is an end-to-end, cloud-native microservices architecture deployed on Amazon Elastic Kubernetes Service (EKS). This project serves as a comprehensive demonstration of modern Cloud Engineering practices, featuring fully automated infrastructure provisioning, a strict GitOps CI/CD pipeline, and a custom LLM-powered Root Cause Analysis (RCA) agent for intelligent, self-healing observability.
+---
 
-## 🏗️ Architecture & Core Technologies
+## 🧭 Executive Summary
+Engineered a **highly available, self-healing GitOps platform** on AWS EKS that automates infrastructure provisioning, secure delivery, and continuous observability. This portfolio-grade system demonstrates **platform engineering** principles, combining **GitOps, IaC, and AIOps** to deliver reliable, scalable cloud operations.
 
-* **Infrastructure as Code (IaC):** AWS environment (VPC, private/public subnets, EKS Cluster, ECR Registries) provisioned immutably using modular **Terraform**.
-* **Container Orchestration:** Microservices (Node.js backend, React frontend) orchestrated via **Kubernetes (AWS EKS)**.
-* **Continuous Integration (CI):** **GitHub Actions** pipeline that securely authenticates with AWS via OIDC/Secrets, builds Docker images from nested directories, and pushes them to private ECR repositories upon code changes.
-* **Continuous Delivery (CD):** **ArgoCD** deployed within the cluster, utilizing a pull-based GitOps methodology to ensure the live cluster state perfectly mirrors the `k8s/` manifests in this repository.
-* **AIOps (Coming Soon):** A **Python-based LLM Agent** designed to monitor Kubernetes events, automatically detect `CrashLoopBackOff` or `ImagePullBackOff` errors, and generate human-readable RCA reports using generative AI.
+---
 
-## 📂 Repository Structure
+## 🏗️ Architecture (Platform + GitOps Flow)
 
-Because this is a comprehensive monorepo, the automation pipelines live at the root, while the application and infrastructure code are nested within the main project folder.
+```mermaid
+flowchart LR
+  U[User] --> ALB[AWS ALB]
+  ALB --> ING[EKS Ingress]
+  ING --> SVC[Services]
+  SVC --> POD[Pods]
+
+  GH[GitHub Actions] --> ECR[AWS ECR]
+  ARGO[ArgoCD] --> EKS[EKS Cluster]
+  GH --> ARGO
+```
+
+---
+
+## 🔑 Key Infrastructure Pillars
+
+### ✅ Automated CI/CD (GitOps)
+- **GitHub Actions** builds and pushes container images to **ECR**
+- **ArgoCD** continuously syncs Kubernetes manifests for **zero‑downtime delivery**
+
+### 🔐 Enterprise Security
+- **Bitnami Sealed Secrets** enables cryptographic secret management (Git‑safe)
+
+### 📈 Active Observability
+- **Prometheus + Grafana + Alertmanager** with Slack-based incident routing
+
+### 🧠 AIOps & Auto‑Triage
+- **Custom Python controller** watches Kubernetes crashes and generates LLM-based RCA for `CrashLoopBackOff` events
+
+---
+
+## 🧰 Core Tech Stack
+
+**Platform & Cloud**
+- AWS (EKS, ECR, VPC, IAM)
+- Terraform (modular IaC)
+
+**Kubernetes & GitOps**
+- Kubernetes (manifests in `k8s/`)
+- ArgoCD (GitOps controller)
+
+**Observability**
+- Prometheus
+- Grafana
+- Alertmanager → Slack
+
+**AIOps**
+- Python + Kubernetes API
+- Gemini LLM for root-cause diagnostics
+
+**CI/CD**
+- GitHub Actions
+- Docker
+
+---
+
+## 🗂️ Repository Structure (Infrastructure Focus)
 
 ```text
 .
-├── .github/workflows/             # CI Pipeline (GitHub Actions)
-│   └── deploy.yaml                # Build & push workflow for nested microservices
-└── simple-k8s-app/                # Main Application & Infrastructure Code
-    ├── backend/                   # Node.js backend application source code & Dockerfile
-    ├── frontend/                  # React frontend application source code & Dockerfile
-    ├── k8s/                       # Kubernetes Manifests (The "GitOps Source of Truth")
-    │   ├── backend/               # Backend Deployment, Service, ConfigMap
-    │   ├── frontend/              # Frontend Deployment, Service
-    │   └── database/               # Database Deployment, Service
-    ├── terraform/                 # Infrastructure as Code
-    │   ├── modules/               # Custom local modules (VPC, EKS, ECR)
-    │   ├── main.tf                # Orchestration layer
-    │   ├── variables.tf           # Environment variables
-    │   └── outputs.tf             # EKS endpoints and ECR URLs
-    └── ai-agent/                  # Python LLM Root Cause Analysis script (WIP)
+├── .github/workflows/        # GitHub Actions CI pipeline
+│   └── deploy.yaml
+├── terraform/                # Modular IaC for VPC, EKS, ECR
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   └── modules/
+│       ├── vpc/
+│       ├── eks/
+│       └── ecr/
+├── k8s/                      # GitOps source of truth (manifests)
+│   ├── backend/
+│   ├── frontend/
+│   ├── database/
+│   ├── namespace.yaml
+│   ├── fitness-ingress.yaml
+│   └── fitness-secrets.yaml
+├── argocd-app.yaml           # ArgoCD application definition
+├── alertmanager-values.yaml  # Alert routing to Slack
+├── sealed-secret.yaml         # Encrypted secrets (Bitnami Sealed Secrets)
+├── ai_controller.py           # AIOps controller for crash diagnostics
+```
+
+---
+
+## 🚀 Getting Started (High‑Level Deployment)
+
+1. **Provision AWS infrastructure**
+   - Use Terraform in `terraform/` to create VPC, EKS cluster, and ECR.
+
+2. **Bootstrap GitOps**
+   - Install ArgoCD in the cluster.
+   - Apply `argocd-app.yaml` to sync manifests in `k8s/`.
+
+3. **Deploy CI/CD**
+   - Push to `main` triggers GitHub Actions to build and publish images to ECR.
+
+4. **Enable observability**
+   - Deploy Prometheus/Grafana stack.
+   - Apply `alertmanager-values.yaml` and `sealed-secret.yaml` to route alerts to Slack.
+
+---
+
+## 💼 Why This Project Matters
+This repository represents **real-world platform engineering**: infrastructure automation, GitOps delivery, security‑first secret handling, and AI‑assisted incident response — the exact capabilities expected from **Senior Cloud/DevOps Engineers** building enterprise-grade systems.
+
+---
