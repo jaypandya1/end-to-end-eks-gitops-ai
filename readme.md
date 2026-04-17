@@ -17,7 +17,7 @@ Engineered a **highly available, self-healing GitOps platform** on AWS EKS that 
 ---
 
 ## 🏗️ Architecture (Platform + GitOps Flow)
-![Architecture](image.png)
+![Architecture (Platform + GitOps Flow)](image-1.png)
 
 ## 🔑 Key Infrastructure Pillars
 
@@ -90,7 +90,7 @@ Engineered a **highly available, self-healing GitOps platform** on AWS EKS that 
 
 ---
 
-## 🚀 Getting Started (High‑Level Deployment)
+## 🚀 Getting Started
 
 1. **Provision AWS infrastructure**
    - Use Terraform in `terraform/` to create VPC, EKS cluster, and ECR.
