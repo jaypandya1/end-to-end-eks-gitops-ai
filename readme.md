@@ -18,20 +18,7 @@ Engineered a **highly available, self-healing GitOps platform** on AWS EKS that 
 
 ## 🏗️ Architecture (Platform + GitOps Flow)
 
-```mermaid
-flowchart LR
-  U[User] --> ALB[AWS ALB]
-  ALB --> ING[EKS Ingress]
-  ING --> SVC[Services]
-  SVC --> POD[Pods]
-
-  GH[GitHub Actions] --> ECR[AWS ECR]
-  ARGO[ArgoCD] --> EKS[EKS Cluster]
-  GH --> ARGO
-```
-
----
-
+![Architecture](Fitnestarchi.png)
 ## 🔑 Key Infrastructure Pillars
 
 ### ✅ Automated CI/CD (GitOps)
