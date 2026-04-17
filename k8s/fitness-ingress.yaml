@@ -7,9 +7,12 @@ metadata:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:957563772273:certificate/e5c201a8-81fe-4269-afd3-db428cc744da 
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
 spec:
   rules:
-  - host: jaypandya.systems # You can change this to a real domain later!
+  - host: jaypandya.systems
     http:
       paths:
       # 1. Send all /api traffic directly to the Backend
@@ -20,7 +23,7 @@ spec:
             name: backend-service
             port: 
               number: 3001
-      # 2. Send everything else (/) to the Frontend UI
+    
       - path: /
         pathType: Prefix
         backend:
